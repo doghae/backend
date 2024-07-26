@@ -35,3 +35,10 @@ out/
 
 ### VS Code ###
 .vscode/
+
+### OAuth ###
+*.yml
+*.p12
+
+### mac ###
+.DS_Store
