@@ -14,8 +14,8 @@ import team5.doghae.common.exception.BusinessException;
 import team5.doghae.common.exception.ErrorCode;
 import team5.doghae.common.security.jwt.JwtProvider;
 import team5.doghae.domain.oauth.domain.Auth;
+import team5.doghae.domain.oauth.dto.KakaoOAuthUserProfile;
 import team5.doghae.domain.oauth.dto.OAuthAccessToken;
-import team5.doghae.domain.oauth.dto.OAuthUserProfile;
 import team5.doghae.domain.oauth.dto.ResponseJwtToken;
 import team5.doghae.domain.oauth.exception.OAuthNotFoundException;
 import team5.doghae.domain.oauth.properties.KakaoProperties;
@@ -42,14 +42,14 @@ public class KakaoOAuthService {
     @Transactional
     public ResponseJwtToken login(String code) {
         OAuthAccessToken accessToken = getAccessToken(code);
-        OAuthUserProfile oAuthUserProfile = getUserProfile(accessToken.getAccessToken());
-
+        KakaoOAuthUserProfile oAuthUserProfile = getUserProfile(accessToken.getAccessToken());
+        System.out.println("oAuthUserProfile.getEmail() = " + oAuthUserProfile.getKakaoAccount().getEmail());
         User user = validateUserService.validateRegisteredUserByEmail(
-                oAuthUserProfile.getEmail(), SocialCode.KAKAO);
+                oAuthUserProfile.getKakaoAccount().getEmail(), SocialCode.KAKAO);
 
         if (user == null) {
             user = userService.registerWithOAuth(
-                    oAuthUserProfile.getEmail(), SocialCode.KAKAO, accessToken.getRefreshToken());
+                    oAuthUserProfile.getKakaoAccount().getEmail(), SocialCode.KAKAO, accessToken.getRefreshToken());
         }
 
         String jwtProviderAccessToken = jwtProvider.createAccessToken(user.getId(), user.getUserRole());
@@ -102,7 +102,7 @@ public class KakaoOAuthService {
         }
     }
 
-    public OAuthUserProfile getUserProfile(String accessToken) {
+    public KakaoOAuthUserProfile getUserProfile(String accessToken) {
 
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
@@ -116,8 +116,9 @@ public class KakaoOAuthService {
 
         ResponseEntity<String> userInfoResponse = restTemplate.exchange(properties.getUserInfoUrl(), HttpMethod.GET,
                 httpEntity, String.class);
+        System.out.println("userInfoResponse.getBody() = " + userInfoResponse.getBody());
         try {
-            return objectMapper.readValue(userInfoResponse.getBody(), OAuthUserProfile.class);
+            return objectMapper.readValue(userInfoResponse.getBody(), KakaoOAuthUserProfile.class);
         } catch (JsonProcessingException e) {
             throw new BusinessException(ErrorCode.PARSING_ERROR, e);
         }

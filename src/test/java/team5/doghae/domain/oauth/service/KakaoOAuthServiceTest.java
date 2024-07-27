@@ -102,8 +102,8 @@ class KakaoOAuthServiceTest {
                         .willReturn(new OAuthAccessToken("token", "token", "Bearer", 360000, 360000, "scope"));
                 given(restTemplate.exchange(any(String.class), any(HttpMethod.class), any(HttpEntity.class), any(Class.class)))
                         .willReturn(ResponseEntity.of(Optional.of("json body")));
-                given(objectMapper.readValue(any(String.class), eq(OAuthUserProfile.class)))
-                        .willReturn(new OAuthUserProfile("email"));
+                given(objectMapper.readValue(any(String.class), eq(KakaoOAuthUserProfile.class)))
+                        .willReturn(new KakaoOAuthUserProfile(new KakaoAccount("email")));
             }
 
             @Test
