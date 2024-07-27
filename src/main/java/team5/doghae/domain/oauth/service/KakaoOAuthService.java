@@ -2,7 +2,6 @@ package team5.doghae.domain.oauth.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.*;
@@ -14,7 +13,6 @@ import org.springframework.web.client.RestTemplate;
 import team5.doghae.common.exception.BusinessException;
 import team5.doghae.common.exception.ErrorCode;
 import team5.doghae.common.security.jwt.JwtProvider;
-import team5.doghae.common.utils.HeaderUtils;
 import team5.doghae.domain.oauth.domain.Auth;
 import team5.doghae.domain.oauth.dto.KakaoOAuthUserProfile;
 import team5.doghae.domain.oauth.dto.OAuthAccessToken;
@@ -42,17 +40,16 @@ public class KakaoOAuthService {
     private final JwtProvider jwtProvider;
 
     @Transactional
-    public ResponseJwtToken login(HttpServletRequest request) {
+    public ResponseJwtToken login(String code) {
+        OAuthAccessToken accessToken = getAccessToken(code);
+        KakaoOAuthUserProfile oAuthUserProfile = getUserProfile(accessToken.getAccessToken());
 
-        String accessToken = HeaderUtils.getAuthCode(request);
-        KakaoOAuthUserProfile oAuthUserProfile = getUserProfile(accessToken);
-        System.out.println("oAuthUserProfile.getKakaoAccount().getEmail() = " + oAuthUserProfile.getKakaoAccount().getEmail());
         User user = validateUserService.validateRegisteredUserByEmail(
                 oAuthUserProfile.getKakaoAccount().getEmail(), SocialCode.KAKAO);
 
         if (user == null) {
             user = userService.registerWithOAuth(
-                    oAuthUserProfile.getKakaoAccount().getEmail(), SocialCode.KAKAO, "null(수정요망)");
+                    oAuthUserProfile.getKakaoAccount().getEmail(), SocialCode.KAKAO, accessToken.getRefreshToken());
         }
 
         String jwtProviderAccessToken = jwtProvider.createAccessToken(user.getId(), user.getUserRole());
