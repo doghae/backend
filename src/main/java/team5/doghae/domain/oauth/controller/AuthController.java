@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import team5.doghae.common.resolver.AuthUser;
 import team5.doghae.common.response.SuccessResponse;
 import team5.doghae.common.security.jwt.JwtProvider;
@@ -66,10 +67,10 @@ public class AuthController {
     })
     @GetMapping("/kakao/login")
     public ResponseEntity<SuccessResponse<String>> loginWithKakao(
-            HttpServletRequest request
+            @RequestParam("code") String code
     ) {
         return SuccessResponse.of("success")
-                .setRefreshToken(kakaoOAuthService.login(request));
+                .setRefreshToken(kakaoOAuthService.login(code));
     }
 
     @Operation(summary = "JWT Access token 재발급",
