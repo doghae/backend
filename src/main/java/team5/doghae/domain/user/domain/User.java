@@ -19,7 +19,7 @@ public class User extends BaseEntityWithUpdate {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-     @Column(name = "user_email")
+    @Column(name = "user_email")
     private String email;
 
     @Column(name = "user_name")
