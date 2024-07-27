@@ -37,19 +37,12 @@ public class SecurityConfig {
     private final String[] permitAlls = {
             "/swagger-ui/**",
             "/v3/api-docs/**",
-            "/oauth2/login",
             "/oauth2/kakao/login",
-            "/oauth2/google/login",
-            "/oauth2/naver/login",
             "/oauth2/refresh",
-            "/oauth2/expiredJwt",
-            "/oauth2/test",
-            "/health/server",
-            "/health/profile",
             "/actuator/**",
-            "/weather",
             "/api/**",
-            "/"
+            "/",
+            ""
     };
 
     @Bean
@@ -62,54 +55,46 @@ public class SecurityConfig {
         return new ObjectMapper();
     }
 
-    /**
-     * csrf, rememberMe, logout, formLogin, httpBasic 비활성화
-     */
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                .cors(cors -> cors  // CORS 설정을 구성
+                .cors(cors -> cors
                         .configurationSource(corsConfigurationSource())
                 )
-                .csrf(AbstractHttpConfigurer::disable)  // CSRF 보호를 비활성화
-                .httpBasic(AbstractHttpConfigurer::disable)  // HTTP Basic 인증을 비활성화
-                .sessionManagement(sessionManageMent -> sessionManageMent  // 세션 관리 설정을 구성
-                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)  // 세션을 상태없음(stateless)으로 설정
+                .csrf(AbstractHttpConfigurer::disable)
+                .httpBasic(AbstractHttpConfigurer::disable)
+                .sessionManagement(sessionManageMent -> sessionManageMent
+                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
                 .authorizeHttpRequests(request -> request
                         .requestMatchers("/", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
                         .requestMatchers("/static/**", "/index.html", "/oauth2/**", "/weather").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/post/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/posts").permitAll()
                         .anyRequest().authenticated())
-//                .exceptionHandling(exceptionHandling -> exceptionHandling  // 예외 처리 설정을 구성
-//                        .authenticationEntryPoint(new FailedAuthenticationEntryPoint())  // 인증 실패 시의 엔트리 포인트를 설정
-//                )
                 .addFilterBefore(new JwtAuthenticationFilter(jwtProvider, permitAlls), UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(new JwtAuthenticationEntryPoint(objectMapper()), JwtAuthenticationFilter.class);
 
-        return http.build();  // 보안 필터 체인을 빌드
+        return http.build();
     }
 
-    static class FailedAuthenticationEntryPoint implements AuthenticationEntryPoint {  // 인증 실패 시의 동작을 정의하는 클래스입니다.
+    static class FailedAuthenticationEntryPoint implements AuthenticationEntryPoint {
 
         @Override
         public void commence(HttpServletRequest request, HttpServletResponse response,
                              AuthenticationException authException) throws IOException {
 
-            response.setContentType("application/json");  // 응답의 콘텐츠 타입을 JSON으로 설정
-            response.setStatus(HttpServletResponse.SC_FORBIDDEN);  // 응답 상태 코드를 403 (Forbidden)으로 설정
-            response.getWriter().write("{ \"code\": \"NP\", \"message\": \"Do not have permission.\" }");  // 응답 본문에 JSON 형식의 에러 메시지를 씁니다.
+            response.setContentType("application/json");
+            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+            response.getWriter().write("{ \"code\": \"NP\", \"message\": \"Do not have permission.\" }");
         }
     }
 
     @Bean
-    public CorsConfigurationSource corsConfigurationSource() {  // CORS 설정을 구성하는 메서드입니다.
+    public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 
         configuration.setAllowCredentials(true);
-        configuration.setAllowedOrigins(List.of("http://localhost:3000"));
+        configuration.setAllowedOrigins(List.of("http:localhost:3000"));
         configuration.setAllowedMethods(Arrays.asList("HEAD", "GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(List.of("*"));
         configuration.addExposedHeader("Authorization");

@@ -23,15 +23,15 @@ public class SwaggerConfig {
                 .bearerFormat("JWT")
         );
         return new OpenAPI()
-                .components(components) // 기존에 new Components()로 초기화했던 부분 제거
+                .components(components)
                 .info(apiInfo2())
                 .addSecurityItem(securityRequirement);
     }
 
     private Info apiInfo2() {
         return new Info()
-                .title("API Test") // API의 제목
-                .description("Let's practice Swagger UI") // API에 대한 설명
-                .version("1.0.0"); // API의 버전
+                .title("Doghae APIs")
+                .description("경북대학교 멋쟁이 사자처럼 5팀 백엔드 API입니다.")
+                .version("1.0.0");
     }
 }
