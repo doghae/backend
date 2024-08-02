@@ -8,10 +8,8 @@ import team5.doghae.common.entity.BaseEntityWithUpdate;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "user")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
-@Setter
 @SQLRestriction("deleted_at is null")
 public class User extends BaseEntityWithUpdate {
 
