@@ -9,7 +9,6 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.security.core.Authentication;
@@ -32,8 +31,7 @@ import java.util.Date;
 import java.util.stream.Collectors;
 
 @Component
-@PropertySource("classpath:application-oauth.yml")
-@Slf4j
+@PropertySource("classpath:/application-local.yml")
 public class JwtProvider {
 
     private final String CLAIM_USER_ID = JwtProperties.USER_ID;
@@ -65,10 +63,10 @@ public class JwtProvider {
 
         return Jwts.builder()
                 .setHeaderParam("type", "JWT")
-                .setClaims(claims) // 토큰 발행 유저 정보
-                .setIssuedAt(date) // 토큰 발행 시간
-                .setExpiration(new Date(date.getTime() + tokenValid)) // 토큰 만료 시간
-                .signWith(key, SignatureAlgorithm.HS512) // 알고리즘과 키 설정
+                .setClaims(claims)
+                .setIssuedAt(date)
+                .setExpiration(new Date(date.getTime() + tokenValid))
+                .signWith(key, SignatureAlgorithm.HS512)
                 .compact();
     }
 
@@ -114,7 +112,7 @@ public class JwtProvider {
 
         String userRole = claims.get("userRole", String.class);
         if (!StringUtils.hasText(userRole)) {
-            throw new BusinessException(ErrorCode.AUTHORITY_NOT_FOUND); // 유저권한없음
+            throw new BusinessException(ErrorCode.AUTHORITY_NOT_FOUND);
         }
 
         Collection<? extends GrantedAuthority> authorities =
