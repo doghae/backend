@@ -41,6 +41,7 @@ public class SecurityConfig {
             "/oauth2/refresh",
             "/actuator/**",
             "/api/**",
+            "/test",
             "/",
             ""
     };
@@ -68,7 +69,7 @@ public class SecurityConfig {
                 )
                 .authorizeHttpRequests(request -> request
                         .requestMatchers("/", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
-                        .requestMatchers("/static/**", "/index.html", "/oauth2/**", "/weather").permitAll()
+                        .requestMatchers("/static/**", "/index.html", "/oauth2/**").permitAll()
                         .anyRequest().authenticated())
                 .addFilterBefore(new JwtAuthenticationFilter(jwtProvider, permitAlls), UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(new JwtAuthenticationEntryPoint(objectMapper()), JwtAuthenticationFilter.class);
