@@ -12,7 +12,7 @@ jobs:
       - name: SSH로 EC2에 접속하기!
         uses: appleboy/ssh-action@v1.0.3
         env:
-          APPLICATION_PROD_PROPERTIES: ${{ secrets.APPLICATION_PROD_PROPERTIES }}
+          APPLICATION_PROD_PROPERTIES: ${{ secrets.APPLICATION_PROPERTIES }}
         with:
 
           host: ${{ secrets.EC2_HOST }}
