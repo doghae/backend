@@ -3,7 +3,7 @@ package team5.doghae;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-//@SpringBootTest
+@SpringBootTest(classes = DoghaeApplicationTests.class)
 class DoghaeApplicationTests {
 
     @Test
