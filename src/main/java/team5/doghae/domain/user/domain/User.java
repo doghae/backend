@@ -5,6 +5,7 @@ import lombok.*;
 import org.hibernate.annotations.SQLRestriction;
 import team5.doghae.common.entity.BaseEntityWithUpdate;
 import team5.doghae.domain.review.domain.Review;
+import team5.doghae.domain.user_stage_map.domain.UserStage;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -38,6 +39,9 @@ public class User extends BaseEntityWithUpdate {
     private String profileImageUrl;
 
     private LocalDateTime deletedAt;
+
+    @OneToMany(mappedBy = "user")
+    private List<UserStage> userStages;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     List<Review> reviews = new ArrayList<>();

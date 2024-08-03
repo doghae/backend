@@ -69,6 +69,7 @@ public class AuthController {
     public ResponseEntity<SuccessResponse<String>> loginWithKakao(
             @RequestParam("code") String code
     ) {
+        System.out.println("code = " + code);
         return SuccessResponse.of("success")
                 .setRefreshToken(kakaoOAuthService.login(code));
     }
