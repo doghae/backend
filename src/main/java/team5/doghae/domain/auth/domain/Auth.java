@@ -1,4 +1,4 @@
-package team5.doghae.domain.oauth.domain;
+package team5.doghae.domain.auth.domain;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;

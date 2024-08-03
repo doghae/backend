@@ -1,4 +1,4 @@
-package team5.doghae.domain.oauth.service;
+package team5.doghae.domain.auth.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

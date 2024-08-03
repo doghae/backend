@@ -1,4 +1,4 @@
-package team5.doghae.domain.oauth.service;
+package team5.doghae.domain.auth.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -13,13 +13,13 @@ import org.springframework.web.client.RestTemplate;
 import team5.doghae.common.exception.BusinessException;
 import team5.doghae.common.exception.ErrorCode;
 import team5.doghae.common.security.jwt.JwtProvider;
-import team5.doghae.domain.oauth.domain.Auth;
-import team5.doghae.domain.oauth.dto.KakaoOAuthUserProfile;
-import team5.doghae.domain.oauth.dto.OAuthAccessToken;
-import team5.doghae.domain.oauth.dto.ResponseJwtToken;
-import team5.doghae.domain.oauth.exception.OAuthNotFoundException;
-import team5.doghae.domain.oauth.properties.KakaoProperties;
-import team5.doghae.domain.oauth.repository.AuthRepository;
+import team5.doghae.domain.auth.domain.Auth;
+import team5.doghae.domain.auth.dto.KakaoOAuthUserProfile;
+import team5.doghae.domain.auth.dto.OAuthAccessToken;
+import team5.doghae.domain.auth.dto.ResponseJwtToken;
+import team5.doghae.domain.auth.exception.OAuthNotFoundException;
+import team5.doghae.domain.auth.properties.KakaoProperties;
+import team5.doghae.domain.auth.repository.AuthRepository;
 import team5.doghae.domain.user.domain.SocialCode;
 import team5.doghae.domain.user.domain.User;
 import team5.doghae.domain.user.service.UserService;

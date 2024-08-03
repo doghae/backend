@@ -1,4 +1,4 @@
-package team5.doghae.domain.oauth.controller;
+package team5.doghae.domain.auth.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -20,9 +20,9 @@ import team5.doghae.common.security.jwt.JwtProvider;
 import team5.doghae.common.security.jwt.JwtTokenInfo;
 import team5.doghae.common.security.jwt.JwtType;
 import team5.doghae.common.utils.HeaderUtils;
-import team5.doghae.domain.oauth.dto.ResponseJwtToken;
-import team5.doghae.domain.oauth.service.KakaoOAuthService;
-import team5.doghae.domain.oauth.service.OAuthService;
+import team5.doghae.domain.auth.dto.ResponseJwtToken;
+import team5.doghae.domain.auth.service.KakaoOAuthService;
+import team5.doghae.domain.auth.service.OAuthService;
 import team5.doghae.domain.user.domain.UserRole;
 
 @Controller

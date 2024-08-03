@@ -1,4 +1,4 @@
-package team5.doghae.domain.oauth.dto;
+package team5.doghae.domain.auth.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.AccessLevel;

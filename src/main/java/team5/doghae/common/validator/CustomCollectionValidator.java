@@ -1,4 +1,4 @@
-package team5.doghae.domain.validator;
+package team5.doghae.common.validator;
 
 import jakarta.validation.Validation;
 import org.springframework.stereotype.Component;

@@ -1,4 +1,4 @@
-package team5.doghae.domain.oauth.exception;
+package team5.doghae.domain.auth.exception;
 
 import team5.doghae.common.exception.BusinessException;
 import team5.doghae.common.exception.ErrorCode;
