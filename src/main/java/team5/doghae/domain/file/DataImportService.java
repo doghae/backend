@@ -21,9 +21,8 @@ import java.util.*;
 @RequiredArgsConstructor
 public class DataImportService {
 
-    private StageRepository stageRepository;
-
-    private QuestionRepository questionRepository;
+    private final StageRepository stageRepository;
+    private final QuestionRepository questionRepository;
 
     public void importDataFromExcel(MultipartFile file) throws IOException {
         try (InputStream inputStream = file.getInputStream();
@@ -37,37 +36,32 @@ public class DataImportService {
                     continue;
                 }
 
-                Cell idCell = row.getCell(0);
-                Cell keywordCell = row.getCell(1);
-                Cell problemCell = row.getCell(2);
-                Cell answerCell = row.getCell(3);
-                Cell choice2Cell = row.getCell(4);
-                Cell choice3Cell = row.getCell(5);
-                Cell choice4Cell = row.getCell(6);
-                Cell tagCell = row.getCell(7);
+                Result result = getResult(row);
 
-                if (idCell == null || keywordCell == null || problemCell == null || answerCell == null) {
+
+                if (result.idCell() == null || result.keywordCell() == null || result.problemCell() == null || result.answerCell() == null || result.tagCell() == null || result.stageIdCell() == null) {
                     continue;
                 }
 
-                String keyword = keywordCell.getStringCellValue();
-                String problem = problemCell.getStringCellValue();
-                String answer = answerCell.getStringCellValue();
-                String tag = tagCell.getStringCellValue();
+                String keyword = result.keywordCell().getStringCellValue();
+                String problem = result.problemCell().getStringCellValue();
+                String answer = result.answerCell().getStringCellValue();
+                String tag = result.tagCell().getStringCellValue();
 
                 List<String> choices = new ArrayList<>();
                 choices.add(answer);
-                choices.add(choice2Cell != null ? choice2Cell.getStringCellValue() : "");
-                choices.add(choice3Cell != null ? choice3Cell.getStringCellValue() : "");
-                choices.add(choice4Cell != null ? choice4Cell.getStringCellValue() : "");
+                if (result.choice2Cell() != null) choices.add(result.choice2Cell().getStringCellValue());
+                if (result.choice3Cell() != null) choices.add(result.choice3Cell().getStringCellValue());
+                if (result.choice4Cell() != null) choices.add(result.choice4Cell().getStringCellValue());
 
                 Collections.shuffle(choices);
 
                 Tag questionTag = Tag.valueOf(tag.toUpperCase());
-
-                Stage stage = getStageForId((int) idCell.getNumericCellValue(), stages);
+                int stageId = (int) result.stageIdCell().getNumericCellValue();
+                Stage stage = getStageForId(stageId, stages);
 
                 Question question = Question.builder()
+                        .id((long) result.idCell().getNumericCellValue())
                         .keyword(keyword)
                         .problem(problem)
                         .choices(choices)
@@ -75,16 +69,33 @@ public class DataImportService {
                         .tag(questionTag)
                         .stage(stage)
                         .build();
-
                 questionRepository.save(question);
             }
         }
     }
 
+    private Result getResult(Row row) {
+        Cell idCell = row.getCell(0);
+        Cell keywordCell = row.getCell(1);
+        Cell problemCell = row.getCell(2);
+        Cell answerCell = row.getCell(3);
+        Cell choice2Cell = row.getCell(4);
+        Cell choice3Cell = row.getCell(5);
+        Cell choice4Cell = row.getCell(6);
+        Cell tagCell = row.getCell(7);
+        Cell stageIdCell = row.getCell(8);
+        return new Result(idCell, keywordCell, problemCell, answerCell, choice2Cell, choice3Cell, choice4Cell, tagCell, stageIdCell);
+    }
+
+    private record Result(Cell idCell, Cell keywordCell, Cell problemCell, Cell answerCell, Cell choice2Cell,
+                          Cell choice3Cell, Cell choice4Cell, Cell tagCell, Cell stageIdCell) {
+    }
+
     private Stage getStageForId(int stageId, Map<String, Stage> stages) {
-        String stageTitle = "Stage " + stageId;
+        String stageTitle = stageId + "번째 스테이지";
         if (!stages.containsKey(stageTitle)) {
             Stage stage = Stage.builder()
+                    .id((long) stageId)
                     .title(stageTitle)
                     .stageResultInfo(new StageResultInfo(0, 0, 0, 0))
                     .timeLimit(15)

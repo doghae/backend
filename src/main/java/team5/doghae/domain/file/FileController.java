@@ -14,7 +14,7 @@ public class FileController {
     private final DataImportService dataImportService;
 
     @GetMapping("/getFile")
-    public String readFile(@RequestPart MultipartFile multipartFile) throws IOException {
+    public String readFile(@RequestPart("file") MultipartFile multipartFile) throws IOException {
         dataImportService.importDataFromExcel(multipartFile);
         return "ok";
     }
