@@ -3,13 +3,13 @@ package team5.doghae.domain.oauth.properties;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 @Component
 @Getter
 @NoArgsConstructor
-@PropertySource("classpath:/application-local.yml")
+@Profile({"local","prod"})
 public class KakaoProperties {
 
     @Value("${oauth2.kakao.api-key}")

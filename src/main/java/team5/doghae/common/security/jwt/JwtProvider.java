@@ -10,7 +10,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.annotation.Profile;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -31,7 +31,7 @@ import java.util.Date;
 import java.util.stream.Collectors;
 
 @Component
-@PropertySource("classpath:/application-local.yml")
+@Profile({"local","prod"})
 public class JwtProvider {
 
     private final String CLAIM_USER_ID = JwtProperties.USER_ID;

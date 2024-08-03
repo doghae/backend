@@ -43,7 +43,6 @@ public class KakaoOAuthService {
     public ResponseJwtToken login(String code) {
         OAuthAccessToken accessToken = getAccessToken(code);
         KakaoOAuthUserProfile oAuthUserProfile = getUserProfile(accessToken.getAccessToken());
-        System.out.println("oAuthUserProfile.getEmail() = " + oAuthUserProfile.getKakaoAccount().getEmail());
         User user = validateUserService.validateRegisteredUserByEmail(
                 oAuthUserProfile.getKakaoAccount().getEmail(), SocialCode.KAKAO);
 
@@ -116,7 +115,6 @@ public class KakaoOAuthService {
 
         ResponseEntity<String> userInfoResponse = restTemplate.exchange(properties.getUserInfoUrl(), HttpMethod.GET,
                 httpEntity, String.class);
-        System.out.println("userInfoResponse.getBody() = " + userInfoResponse.getBody());
         try {
             return objectMapper.readValue(userInfoResponse.getBody(), KakaoOAuthUserProfile.class);
         } catch (JsonProcessingException e) {
