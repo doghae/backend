@@ -20,6 +20,7 @@ jobs:
           script-stop: true
           script: |
             cd /home/ubuntu/backend
+            rm -rf src/main/resources/application-prod.yml
             git pull origin main
             echo "${{ secrets.APPLICATION_PROD_PROPERTIES }}" > src/main/resources/application-prod.yml
             cat src/main/resources/application-prod.yml 
