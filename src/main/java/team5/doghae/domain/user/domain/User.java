@@ -8,9 +8,12 @@ import team5.doghae.common.entity.BaseEntityWithUpdate;
 import java.time.LocalDateTime;
 
 @Entity
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
+@Builder
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
 @SQLRestriction("deleted_at is null")
+@Table(name = "user")
 public class User extends BaseEntityWithUpdate {
 
     @Id
@@ -33,12 +36,12 @@ public class User extends BaseEntityWithUpdate {
 
     private LocalDateTime deletedAt;
 
-    @Builder
     public User(String email, String nickName, SocialCode socialCode) {
         this.email = email;
         this.nickName = nickName;
         this.socialCode = socialCode;
         this.userRole = UserRole.USER;
+        this.profileImageUrl = null;
     }
 
     public static User create(String email, SocialCode socialCode) {
