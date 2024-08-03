@@ -14,7 +14,6 @@ jobs:
         env:
           APPLICATION_PROD_PROPERTIES: ${{ secrets.APPLICATION_PROPERTIES }}
         with:
-
           host: ${{ secrets.EC2_HOST }}
           username: ${{ secrets.EC2_USERNAME }}
           key: ${{ secrets.EC2_PRIVATE_KEY }}
@@ -22,7 +21,8 @@ jobs:
           script: |
             cd /home/ubuntu/backend
             git pull origin main
-            echo "$APPLICATION_PROD_PROPERTIES" > src/main/resources/application-prod.yml
+            echo "${{ secrets.APPLICATION_PROD_PROPERTIES }}" > src/main/resources/application-prod.yml
+            cat src/main/resources/application-prod.yml 
             ./gradlew clean build
             sudo fuser -k -n tcp 8080 || true
             nohup java -jar build/libs/*SNAPSHOT.jar > ./output.log 2>&1 &
