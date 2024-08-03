@@ -23,17 +23,18 @@ public class User extends BaseEntityWithUpdate {
     @Column(name = "user_name")
     private String nickName;
 
-
     @Enumerated(EnumType.STRING)
     private SocialCode socialCode;
 
     @Enumerated(EnumType.STRING)
     private UserRole userRole;
 
+    private String profileImageUrl;
+
     private LocalDateTime deletedAt;
 
     @Builder
-    public User(String email, String nickName, String telNumber, String password, String profileImage, SocialCode socialCode) {
+    public User(String email, String nickName, SocialCode socialCode) {
         this.email = email;
         this.nickName = nickName;
         this.socialCode = socialCode;
@@ -45,6 +46,10 @@ public class User extends BaseEntityWithUpdate {
                 .email(email)
                 .socialCode(socialCode)
                 .build();
+    }
+
+    public void changeProfileImageUrl(String profileImageUrl) {
+        this.profileImageUrl = profileImageUrl;
     }
 
     public void deleteUser() {
