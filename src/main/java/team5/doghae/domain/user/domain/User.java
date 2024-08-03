@@ -4,8 +4,11 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.SQLRestriction;
 import team5.doghae.common.entity.BaseEntityWithUpdate;
+import team5.doghae.domain.review.domain.Review;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -35,6 +38,9 @@ public class User extends BaseEntityWithUpdate {
     private String profileImageUrl;
 
     private LocalDateTime deletedAt;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    List<Review> reviews = new ArrayList<>();
 
     public User(String email, String nickName, SocialCode socialCode) {
         this.email = email;
