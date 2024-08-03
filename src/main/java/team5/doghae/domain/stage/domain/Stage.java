@@ -18,19 +18,14 @@ public class Stage {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Integer rightAnswerCount;
+    @Embedded
+    private StageResultInfo stageResultInfo;
 
-    private LocalDate date;
+    private LocalDate solvedDate;
 
     @OneToOne(fetch = FetchType.LAZY)
     private Quiz quiz;
 
     private boolean isSolved;
 
-    public static Stage of(Integer count, LocalDate date) {
-        return Stage.builder()
-                .rightAnswerCount(count)
-                .date(date)
-                .build();
-    }
 }

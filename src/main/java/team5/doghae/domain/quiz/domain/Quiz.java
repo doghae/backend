@@ -3,7 +3,6 @@ package team5.doghae.domain.quiz.domain;
 import jakarta.persistence.*;
 import lombok.*;
 import team5.doghae.domain.question.domain.Question;
-import team5.doghae.domain.quiz.domain.enums.Tag;
 import team5.doghae.domain.stage.domain.Stage;
 
 import java.util.ArrayList;
@@ -21,9 +20,6 @@ public class Quiz {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Enumerated(EnumType.STRING)
-    private Tag tag;
-
     private String title;
 
     private int limitSeconds;
@@ -31,7 +27,7 @@ public class Quiz {
     @OneToOne(mappedBy = "quiz", cascade = CascadeType.ALL)
     private Stage stage;
 
-    @OneToMany(mappedBy = "quiz", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "quiz", cascade = CascadeType.ALL)
     private List<Question> questions = new ArrayList<>();
 
 }

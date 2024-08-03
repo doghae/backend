@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import team5.doghae.domain.question.domain.converter.QuestionChoicesConverter;
 import team5.doghae.domain.quiz.domain.Quiz;
+import team5.doghae.domain.quiz.domain.enums.Tag;
 import team5.doghae.domain.review.domain.Review;
 
 import java.util.List;
@@ -24,10 +25,15 @@ public class Question {
     @JoinColumn(name = "quiz_id")
     private Quiz quiz;
 
+    private String keyword;
+
     private String problem;
 
     @Convert(converter = QuestionChoicesConverter.class)
     private List<String> choices;
+
+    @Enumerated(EnumType.STRING)
+    private Tag tag;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Review review;
