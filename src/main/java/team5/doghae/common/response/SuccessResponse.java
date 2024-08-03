@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import team5.doghae.domain.oauth.dto.ResponseJwtToken;
+import team5.doghae.domain.auth.dto.ResponseJwtToken;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
