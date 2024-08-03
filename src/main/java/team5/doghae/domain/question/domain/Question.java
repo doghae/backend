@@ -2,9 +2,10 @@ package team5.doghae.domain.question.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
+import team5.doghae.domain.question.Tag;
 import team5.doghae.domain.question.domain.converter.QuestionChoicesConverter;
-import team5.doghae.domain.quiz.domain.Quiz;
 import team5.doghae.domain.review.domain.Review;
+import team5.doghae.domain.stage.domain.Stage;
 
 import java.util.List;
 
@@ -20,17 +21,22 @@ public class Question {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "quiz_id")
-    private Quiz quiz;
+    private String keyword;
 
     private String problem;
 
     @Convert(converter = QuestionChoicesConverter.class)
     private List<String> choices;
 
+    @Enumerated(EnumType.STRING)
+    private Tag tag;
+
     @ManyToOne(fetch = FetchType.LAZY)
     private Review review;
 
-    private int answer;
+    private String answer;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "stage_id")
+    private Stage stage;
 }

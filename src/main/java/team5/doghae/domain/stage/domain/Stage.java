@@ -2,9 +2,11 @@ package team5.doghae.domain.stage.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
-import team5.doghae.domain.quiz.domain.Quiz;
+import team5.doghae.domain.question.domain.Question;
+import team5.doghae.domain.user_stage_map.domain.UserStage;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Getter
@@ -18,19 +20,20 @@ public class Stage {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Integer rightAnswerCount;
+    @Embedded
+    private StageResultInfo stageResultInfo;
 
-    private LocalDate date;
+    private LocalDate solvedDate;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    private Quiz quiz;
+    private String title;
+
+    private int timeLimit;
 
     private boolean isSolved;
 
-    public static Stage of(Integer count, LocalDate date) {
-        return Stage.builder()
-                .rightAnswerCount(count)
-                .date(date)
-                .build();
-    }
+    @OneToMany(mappedBy = "stage")
+    private List<UserStage> userStages;
+
+    @OneToMany(mappedBy = "stage")
+    private List<Question> questions;
 }
