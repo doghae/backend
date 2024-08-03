@@ -6,6 +6,7 @@ import team5.doghae.domain.question.domain.Question;
 import team5.doghae.domain.quiz.domain.enums.Tag;
 import team5.doghae.domain.stage.domain.Stage;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -17,6 +18,7 @@ import java.util.List;
 public class Quiz {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Enumerated(EnumType.STRING)
@@ -30,6 +32,6 @@ public class Quiz {
     private Stage stage;
 
     @OneToMany(mappedBy = "quiz", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Question> questions;
+    private List<Question> questions = new ArrayList<>();
 
 }

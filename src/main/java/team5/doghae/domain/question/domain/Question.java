@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import team5.doghae.domain.question.domain.converter.QuestionChoicesConverter;
 import team5.doghae.domain.quiz.domain.Quiz;
+import team5.doghae.domain.review.domain.Review;
 
 import java.util.List;
 
@@ -16,7 +17,7 @@ import java.util.List;
 public class Question {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -27,6 +28,9 @@ public class Question {
 
     @Convert(converter = QuestionChoicesConverter.class)
     private List<String> choices;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Review review;
 
     private int answer;
 }

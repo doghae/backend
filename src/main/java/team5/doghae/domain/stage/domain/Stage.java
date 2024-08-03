@@ -25,6 +25,8 @@ public class Stage {
     @OneToOne(fetch = FetchType.LAZY)
     private Quiz quiz;
 
+    private boolean isSolved;
+
     public static Stage of(Integer count, LocalDate date) {
         return Stage.builder()
                 .rightAnswerCount(count)

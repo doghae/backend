@@ -5,6 +5,7 @@ import lombok.*;
 import team5.doghae.domain.question.domain.Question;
 import team5.doghae.domain.user.domain.User;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -19,11 +20,11 @@ public class Review {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 
-    @OneToMany
-    List<Question> wrongQuestions;
+    @OneToMany(mappedBy = "review", cascade = CascadeType.ALL, orphanRemoval = true)
+    List<Question> wrongQuestions = new ArrayList<>();
 
 
 }
