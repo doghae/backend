@@ -4,12 +4,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Profile;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
 @Component
 @Getter
 @NoArgsConstructor
-@Profile({"local","prod"})
+@PropertySource({"classpath:application-prod.yml", "classpath:application-local.yml"})
 public class KakaoProperties {
 
     @Value("${oauth2.kakao.api-key}")
