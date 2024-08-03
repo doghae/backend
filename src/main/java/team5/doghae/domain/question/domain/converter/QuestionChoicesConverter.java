@@ -9,19 +9,18 @@ public class QuestionChoicesConverter implements AttributeConverter<List<String>
     private static final String SPLIT_CHAR = ",";
 
     @Override
-    public String convertToDatabaseColumn(List<String> choices) {
-        if (choices == null || choices.isEmpty())
+    public String convertToDatabaseColumn(List<String> strings) {
+        if (strings == null || strings.isEmpty())
             return null;
 
-        return String.join(SPLIT_CHAR, choices);
+        return String.join(SPLIT_CHAR, strings);
     }
 
     @Override
-    public List<String> convertToEntityAttribute(String s) {
-        if (s == null || s.isEmpty())
+    public List<String> convertToEntityAttribute(String string) {
+        if (string == null || string.isEmpty())
             return null;
 
-        return Arrays.stream(s.split(SPLIT_CHAR))
-                .toList();
+        return Arrays.asList(string.split(SPLIT_CHAR));
     }
 }
