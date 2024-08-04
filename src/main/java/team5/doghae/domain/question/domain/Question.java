@@ -39,16 +39,4 @@ public class Question {
     @JoinColumn(name = "stage_id")
     private Stage stage;
 
-    @Override
-    public String toString() {
-        return "Question{" +
-                "id=" + id +
-                ", keyword='" + keyword + '\'' +
-                ", problem='" + problem + '\'' +
-                ", choices=" + choices +
-                ", tag=" + tag +
-                ", review=" + review +
-                ", answer='" + answer + '\'' +
-                '}';
-    }
 }
