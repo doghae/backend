@@ -52,6 +52,7 @@ public class KakaoOAuthService {
         }
 
         String jwtProviderAccessToken = jwtProvider.createAccessToken(user.getId(), user.getUserRole());
+        log.info(jwtProviderAccessToken);
         String jwtProviderRefreshToken = jwtProvider.createRefreshToken(user.getId(), user.getUserRole());
 
         return ResponseJwtToken.of(jwtProviderAccessToken, jwtProviderRefreshToken);

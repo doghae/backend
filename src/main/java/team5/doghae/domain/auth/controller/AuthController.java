@@ -8,6 +8,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -25,6 +26,7 @@ import team5.doghae.domain.auth.service.KakaoOAuthService;
 import team5.doghae.domain.auth.service.OAuthService;
 import team5.doghae.domain.user.domain.UserRole;
 
+@Slf4j
 @Controller
 @RequestMapping("/oauth2")
 @RequiredArgsConstructor
@@ -69,7 +71,7 @@ public class AuthController {
     public ResponseEntity<SuccessResponse<String>> loginWithKakao(
             @RequestParam("code") String code
     ) {
-        System.out.println("code = " + code);
+        log.info(code);
         return SuccessResponse.of("success")
                 .setRefreshToken(kakaoOAuthService.login(code));
     }
