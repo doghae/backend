@@ -42,6 +42,7 @@ public class SecurityConfig {
             "/actuator/**",
             "/api/**",
             "/test",
+            "/getFile",
             "/",
             ""
     };
@@ -69,7 +70,7 @@ public class SecurityConfig {
                 )
                 .authorizeHttpRequests(request -> request
                         .requestMatchers("/", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
-                        .requestMatchers("/static/**", "/index.html", "/oauth2/**", "/test").permitAll()
+                        .requestMatchers("/static/**", "/index.html", "/oauth2/**", "/test", "/getFile").permitAll()
                         .anyRequest().authenticated())
                 .addFilterBefore(new JwtAuthenticationFilter(jwtProvider, permitAlls), UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(new JwtAuthenticationEntryPoint(objectMapper()), JwtAuthenticationFilter.class);
@@ -96,6 +97,7 @@ public class SecurityConfig {
 
         configuration.setAllowCredentials(true);
         configuration.setAllowedOrigins(List.of("http:localhost:3000"));
+        configuration.setAllowedOrigins(List.of("https://doghae.vercel.app"));
         configuration.setAllowedMethods(Arrays.asList("HEAD", "GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(List.of("*"));
         configuration.addExposedHeader("Authorization");

@@ -18,7 +18,6 @@ import java.util.List;
 public class Question {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String keyword;
@@ -39,4 +38,17 @@ public class Question {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "stage_id")
     private Stage stage;
+
+    @Override
+    public String toString() {
+        return "Question{" +
+                "id=" + id +
+                ", keyword='" + keyword + '\'' +
+                ", problem='" + problem + '\'' +
+                ", choices=" + choices +
+                ", tag=" + tag +
+                ", review=" + review +
+                ", answer='" + answer + '\'' +
+                '}';
+    }
 }
