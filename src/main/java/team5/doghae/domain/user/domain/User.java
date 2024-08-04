@@ -58,6 +58,7 @@ public class User extends BaseEntityWithUpdate {
         return User.builder()
                 .email(email)
                 .socialCode(socialCode)
+                .userRole(UserRole.USER)
                 .build();
     }
 
