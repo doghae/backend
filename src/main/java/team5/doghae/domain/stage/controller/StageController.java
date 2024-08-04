@@ -22,8 +22,6 @@ public class StageController {
             @AuthUser JwtTokenInfo jwtTokenInfo,
             @PathVariable("stageId") Long stageId
     ) {
-
-
         return SuccessResponse.of(
                 stageService.getStage(jwtTokenInfo.getUserId(), stageId)
         ).setStatus(HttpStatus.OK);

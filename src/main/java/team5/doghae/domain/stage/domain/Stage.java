@@ -19,16 +19,9 @@ public class Stage {
     @Id
     private Long id;
 
-    @Embedded
-    private StageResultInfo stageResultInfo;
-
-    private LocalDate solvedDate;
-
     private String title;
 
     private int timeLimit;
-
-    private boolean isSolved;
 
     @OneToMany(mappedBy = "stage")
     private List<UserStage> userStages;

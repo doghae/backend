@@ -4,7 +4,10 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import team5.doghae.domain.stage.domain.Stage;
+import team5.doghae.domain.stage.domain.StageResultInfo;
 import team5.doghae.domain.user.domain.User;
+
+import java.time.LocalDate;
 
 @Entity
 @Getter
@@ -22,5 +25,12 @@ public class UserStage {
     @ManyToOne
     @JoinColumn(name = "stage_id")
     private Stage stage;
+
+    @Embedded
+    private StageResultInfo stageResultInfo;
+
+    private LocalDate solvedDate;
+
+    private boolean isSolved;
 
 }
