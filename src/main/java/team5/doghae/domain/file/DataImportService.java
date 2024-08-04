@@ -97,9 +97,7 @@ public class DataImportService {
             Stage stage = Stage.builder()
                     .id((long) stageId)
                     .title(stageTitle)
-                    .stageResultInfo(new StageResultInfo(0, 0, 0, 0))
                     .timeLimit(15)
-                    .isSolved(false)
                     .build();
             stages.put(stageTitle, stageRepository.save(stage));
         }
