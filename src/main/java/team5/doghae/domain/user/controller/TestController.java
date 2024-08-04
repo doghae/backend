@@ -11,7 +11,6 @@ public class TestController {
     @GetMapping("/test")
     public String test() {
         log.info("testController");
-        System.out.println("TestController.test");
         return "test test test test";
     }
 

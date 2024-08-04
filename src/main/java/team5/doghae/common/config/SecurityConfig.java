@@ -70,7 +70,8 @@ public class SecurityConfig {
                 )
                 .authorizeHttpRequests(request -> request
                         .requestMatchers("/", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
-                        .requestMatchers("/static/**", "/index.html", "/oauth2/**", "/test", "/getFile").permitAll()
+                        .requestMatchers("/static/**", "/index.html", "/oauth2/**", "/test", "/getFile",
+                                "/stage/**").permitAll()
                         .anyRequest().authenticated())
                 .addFilterBefore(new JwtAuthenticationFilter(jwtProvider, permitAlls), UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(new JwtAuthenticationEntryPoint(objectMapper()), JwtAuthenticationFilter.class);
