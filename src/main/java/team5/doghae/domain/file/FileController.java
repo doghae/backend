@@ -16,6 +16,7 @@ public class FileController {
 
     @PostMapping("/getFile")
     public String readFile(@RequestPart("file") MultipartFile multipartFile) throws IOException {
+        System.out.println("FileController.readFile");
         dataImportService.importDataFromExcel(multipartFile);
         return "ok";
     }
