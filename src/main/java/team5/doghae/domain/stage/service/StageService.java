@@ -2,7 +2,6 @@ package team5.doghae.domain.stage.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import team5.doghae.domain.question.domain.Question;
 import team5.doghae.domain.question.dto.QuestionResponse;
 import team5.doghae.domain.stage.domain.Stage;
 import team5.doghae.domain.stage.repository.StageRepository;
@@ -12,7 +11,6 @@ import team5.doghae.domain.user_stage_map.repository.UserStageRepository;
 
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
