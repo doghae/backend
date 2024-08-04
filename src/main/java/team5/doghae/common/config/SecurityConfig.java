@@ -39,6 +39,7 @@ public class SecurityConfig {
             "/v3/api-docs/**",
             "/oauth2/kakao/login",
             "/oauth2/refresh",
+            "/oauth2/test",
             "/actuator/**",
             "/api/**",
             "/test",
@@ -69,7 +70,7 @@ public class SecurityConfig {
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
                 .authorizeHttpRequests(request -> request
-                        .requestMatchers("/", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
+                        .requestMatchers("/", "/swagger-ui/**", "/v3/api-docs/**", "/oauth2/kakao/login","/oauth2/test").permitAll()
                         .requestMatchers("/static/**", "/index.html", "/oauth2/**", "/test", "/getFile",
                                 "/stage/**").permitAll()
                         .anyRequest().authenticated())
