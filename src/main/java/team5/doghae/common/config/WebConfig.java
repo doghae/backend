@@ -31,9 +31,7 @@ public class WebConfig implements WebMvcConfigurer {
 //                .allowedHeaders("Authorization", "Content-Type", "X-Requested-With", "Accept", "Origin", "Access-Control-Request-Method", "Access-Control-Request-Headers")
 //                .allowCredentials(true)
 //                .maxAge(3600);
-//    }
-
-
+//
     @Override
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
         resolvers.add(authUserArgumentResolver);
