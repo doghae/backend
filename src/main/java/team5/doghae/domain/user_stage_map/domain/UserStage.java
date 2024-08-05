@@ -1,17 +1,19 @@
 package team5.doghae.domain.user_stage_map.domain;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import team5.doghae.domain.stage.domain.Stage;
 import team5.doghae.domain.stage.domain.StageResultInfo;
 import team5.doghae.domain.user.domain.User;
 
 import java.time.LocalDate;
+import java.time.ZoneId;
 
 @Entity
 @Getter
-@Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class UserStage {
 
     @Id
@@ -33,4 +35,13 @@ public class UserStage {
 
     private boolean isSolved;
 
+
+    public static UserStage of(User user, Stage stage) {
+        return UserStage.builder()
+                .user(user)
+                .stage(stage)
+                .solvedDate(LocalDate.now(ZoneId.of("Asia/Seoul")))
+                .isSolved(true)
+                .build();
+    }
 }
