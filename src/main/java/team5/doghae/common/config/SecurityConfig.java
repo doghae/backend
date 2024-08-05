@@ -24,6 +24,7 @@ import team5.doghae.common.security.jwt.JwtAuthenticationFilter;
 import team5.doghae.common.security.jwt.JwtProvider;
 
 import java.io.IOException;
+import java.sql.Struct;
 import java.util.Arrays;
 import java.util.List;
 
@@ -87,6 +88,7 @@ public class SecurityConfig {
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "OPTIONS", "PUT", "DELETE"));
         configuration.setAllowedHeaders(Arrays.asList("*"));
         configuration.setExposedHeaders(Arrays.asList("*"));
+        configuration.setAllowCredentials(true);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
