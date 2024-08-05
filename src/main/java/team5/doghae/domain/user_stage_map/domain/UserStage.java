@@ -33,15 +33,16 @@ public class UserStage {
 
     private LocalDate solvedDate;
 
-    private boolean isSolved;
-
-
-    public static UserStage of(User user, Stage stage) {
+    public static UserStage of(User user, Stage stage, StageResultInfo stageResultInfo) {
         return UserStage.builder()
                 .user(user)
                 .stage(stage)
+                .stageResultInfo(stageResultInfo)
                 .solvedDate(LocalDate.now(ZoneId.of("Asia/Seoul")))
-                .isSolved(true)
                 .build();
+    }
+
+    public void changeResultInfo(StageResultInfo resultInfo) {
+        this.stageResultInfo = resultInfo;
     }
 }

@@ -3,6 +3,7 @@ package team5.doghae.domain.review.domain;
 import jakarta.persistence.*;
 import lombok.*;
 import team5.doghae.domain.question.domain.Question;
+import team5.doghae.domain.review_question_map.domain.ReviewQuestionMap;
 import team5.doghae.domain.user.domain.User;
 
 import java.util.ArrayList;
@@ -24,7 +25,12 @@ public class Review {
     private User user;
 
     @OneToMany(mappedBy = "review", cascade = CascadeType.ALL, orphanRemoval = true)
-    List<Question> wrongQuestions = new ArrayList<>();
+    private List<ReviewQuestionMap> reviewQuestionMaps;
 
+    public static Review of(User user) {
+        return Review.builder()
+                .user(user)
+                .build();
+    }
 
 }
