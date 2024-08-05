@@ -88,8 +88,8 @@ public class SecurityConfig {
         configuration.addAllowedOrigin("https://doghae.vercel.app/");
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "OPTIONS", "PUT", "DELETE"));
         configuration.setAllowedHeaders(Arrays.asList("*"));
-        configuration.addExposedHeader("Authorization");
-        configuration.addExposedHeader("Set-Cookie");
+        configuration.setExposedHeaders(Arrays.asList("*"));
+
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
