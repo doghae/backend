@@ -38,4 +38,28 @@ public class QuestionResponse {
         }
 
     }
+
+    @Getter
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class Evaluate {
+        private Long questionId;
+        private String keyword;
+        private String problem;
+        private List<String> choices;
+        private Tag tag;
+        private boolean isAnswer;
+
+        public static QuestionResponse.Evaluate of(Question question, boolean isAnswer) {
+            return Evaluate.builder()
+                    .questionId(question.getId())
+                    .keyword(question.getKeyword())
+                    .problem(question.getProblem())
+                    .choices(question.getChoices())
+                    .tag(question.getTag())
+                    .isAnswer(isAnswer)
+                    .build();
+        }
+    }
 }

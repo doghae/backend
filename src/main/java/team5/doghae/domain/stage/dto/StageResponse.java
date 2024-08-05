@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import team5.doghae.domain.stage.domain.Stage;
 
+
 public class StageResponse {
 
     @Getter
@@ -27,4 +28,12 @@ public class StageResponse {
         }
 
     }
+
+//    @Getter
+//    @NoArgsConstructor
+//    @AllArgsConstructor
+//    public static class Evaluate {
+//
+//
+//    }
 }
