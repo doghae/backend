@@ -11,14 +11,14 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
-@OpenAPIDefinition(
-        info = @io.swagger.v3.oas.annotations.info.Info(title = "독해 사이트",
-                description = "멋사5팀 백엔드 API 문서입니다.",
-                version = "v1"),
-        servers = {
-                @io.swagger.v3.oas.annotations.servers.Server(url = "https://doghae.site", description = "운영 서버")
-        }
-)
+//@OpenAPIDefinition(
+//        info = @io.swagger.v3.oas.annotations.info.Info(title = "독해 사이트",
+//                description = "멋사5팀 백엔드 API 문서입니다.",
+//                version = "v1"),
+//        servers = {
+//                @io.swagger.v3.oas.annotations.servers.Server(url = "https://doghae.site", description = "운영 서버")
+//        }
+//)
 @Configuration
 @EnableWebMvc
 public class SwaggerConfig {
@@ -48,3 +48,5 @@ public class SwaggerConfig {
                 .version("1.0.0");
     }
 }
+
+
