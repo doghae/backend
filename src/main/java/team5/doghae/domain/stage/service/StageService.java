@@ -103,7 +103,7 @@ public class StageService {
         Optional<UserStage> findUserStage = userStageRepository.findByUserAndStage(user, stage);
         StageResultInfo resultInfo = StageResultInfo.of(map);
 
-        if (findUserStage.isEmpty()) { // 문제를 처음 푸는 경우
+        if (findUserStage.isEmpty()) {
             userStageRepository.save(UserStage.of(user, stage, resultInfo));
             Review review = Review.of(user);
             reviewRepository.save(review);
@@ -111,7 +111,7 @@ public class StageService {
             for (Question question : wrongQuestionList) {
                 reviewQuestionRepository.save(ReviewQuestionMap.of(review, question));
             }
-        } else { // 문제를 다시 푸는 경우 결과만 갱신한다
+        } else {
             UserStage userStage = findUserStage.get();
             userStage.changeResultInfo(resultInfo);
         }

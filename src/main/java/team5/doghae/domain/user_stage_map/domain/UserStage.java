@@ -38,7 +38,7 @@ public class UserStage {
                 .user(user)
                 .stage(stage)
                 .stageResultInfo(stageResultInfo)
-                .solvedDate(LocalDate.now(ZoneId.of("Asia/Seoul")))
+                .solvedDate(LocalDate.now())
                 .build();
     }
 
