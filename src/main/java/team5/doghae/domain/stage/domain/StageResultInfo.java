@@ -28,13 +28,4 @@ public class StageResultInfo {
         return new StageResultInfo(grammarCount, easyCount, normalCount, hardCount);
     }
 
-    @Override
-    public String toString() {
-        return "StageResultInfo{" +
-                "grammarCount=" + grammarCount +
-                ", easyCount=" + easyCount +
-                ", normalCount=" + normalCount +
-                ", hardCount=" + hardCount +
-                '}';
-    }
 }
