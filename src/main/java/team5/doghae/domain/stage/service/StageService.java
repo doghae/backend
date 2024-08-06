@@ -111,7 +111,7 @@ public class StageService {
 
             if (findReview.isEmpty()) {
                 Review newReview = Review.of(user);
-                reviewRepository.save(newReview);
+                review = reviewRepository.save(newReview);
             } else {
                 review = findReview.get();
             }
