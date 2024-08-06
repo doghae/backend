@@ -57,9 +57,14 @@ public class User extends BaseEntityWithUpdate {
     public static User create(String email, SocialCode socialCode) {
         return User.builder()
                 .email(email)
+                .nickName("독해왕 꿈나무")
                 .socialCode(socialCode)
                 .userRole(UserRole.USER)
                 .build();
+    }
+
+    public void changeNickname(String nickName) {
+        this.nickName = nickName;
     }
 
     public void changeProfileImageUrl(String profileImageUrl) {
