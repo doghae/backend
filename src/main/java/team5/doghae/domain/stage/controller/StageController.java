@@ -7,8 +7,11 @@ import org.springframework.web.bind.annotation.*;
 import team5.doghae.common.resolver.AuthUser;
 import team5.doghae.common.response.SuccessResponse;
 import team5.doghae.common.security.jwt.JwtTokenInfo;
+import team5.doghae.domain.question.dto.QuestionResponse;
 import team5.doghae.domain.stage.dto.StageRequest;
 import team5.doghae.domain.stage.service.StageService;
+
+import java.util.List;
 
 
 @RestController
@@ -18,7 +21,7 @@ public class StageController {
     private final StageService stageService;
 
     @GetMapping("/stage/{stageId}")
-    public ResponseEntity<?> getStage(
+    public ResponseEntity<SuccessResponse<List<QuestionResponse.Create>>> getStage(
             @AuthUser JwtTokenInfo jwtTokenInfo,
             @PathVariable("stageId") Long stageId
     ) {
@@ -28,7 +31,7 @@ public class StageController {
     }
 
     @PostMapping("/stage/{stageId}")
-    public ResponseEntity<?> evaluateStage(
+    public ResponseEntity<SuccessResponse<List<QuestionResponse.Evaluate>>> evaluateStage(
             @AuthUser JwtTokenInfo jwtTokenInfo,
             @PathVariable("stageId") Long stageId,
             @RequestBody StageRequest.Evaluate evaluateRequest
