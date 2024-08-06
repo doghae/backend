@@ -27,7 +27,6 @@ public class ReviewQuestionMap {
 
     private boolean resolved;
 
-
     public static ReviewQuestionMap of(Review review, Question question) {
         return ReviewQuestionMap.builder()
                 .review(review)

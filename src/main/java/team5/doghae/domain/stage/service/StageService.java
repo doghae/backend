@@ -105,8 +105,16 @@ public class StageService {
 
         if (findUserStage.isEmpty()) {
             userStageRepository.save(UserStage.of(user, stage, resultInfo));
-            Review review = Review.of(user);
-            reviewRepository.save(review);
+
+            Review review = null;
+            Optional<Review> findReview = reviewRepository.findByUser(user);
+
+            if (findReview.isEmpty()) {
+                Review newReview = Review.of(user);
+                reviewRepository.save(newReview);
+            } else {
+                review = findReview.get();
+            }
 
             for (Question question : wrongQuestionList) {
                 reviewQuestionRepository.save(ReviewQuestionMap.of(review, question));
